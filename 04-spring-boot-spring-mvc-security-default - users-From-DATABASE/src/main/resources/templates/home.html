@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.com"
+                xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Love for Basketball</title>
+</head>
+<body>
+<h3>Welcome to Golden State Warriors Home Page</h3>
+<hr>
+<p>
+Welcome Home
+</p>
+
+<hr>
+<!--Display the userNames and the Role -->
+<p>
+    User : <span sec:authentication="principal.username" ></span>
+    <br><br>
+    Roles(s) : <span sec:authentication="principal.authorities"></span>
+</p>
+<hr>
+
+<div sec:authorize="hasRole('MANAGER')">
+
+<!-- Add a Link to point to /leaders... This is For the Managers -->
+<p>
+    <a th:href="@{/leaders}">Leadership Mettings </a>
+    (Only For Manager Peeps)
+</p>
+
+</div>
+
+<div sec:authorize="hasRole('ADMIN')">
+
+<!-- Add a Link to point to /systems ... This is for the Admins -->
+<p>
+    <a th:href="@{/systems}">Higher Roles Systems</a>
+    (Only for admin peeps)
+</p>
+<hr>
+
+</div>
+
+<!-- Setting a Logout Button -->
+<form action="#" th:action="@{/logout}" method="POST">
+    <input type="submit" value="Logout" />
+</form>
+</body>
+</html>
